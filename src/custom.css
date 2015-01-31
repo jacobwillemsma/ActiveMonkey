@@ -1,0 +1,9 @@
+body {
+	min-width: 200px;
+	padding:20px;
+}
+
+#title {
+	padding:0px;
+	font-size: 30px;
+}
