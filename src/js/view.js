@@ -8,7 +8,6 @@ window.addEventListener('load', function() {
 	var lunchButton = document.getElementById('lunchButton');
 
 	lunchButton.addEventListener('click', function() {
-		console.log('lunchButton clicked');
 		scheduler.updateLunchMode();
 	});
 	

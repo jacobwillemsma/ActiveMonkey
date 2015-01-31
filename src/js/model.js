@@ -4,7 +4,6 @@ function startOfDay() {
 	this.moment = moment("0:00", "HH:mm");
 }
 startOfDay = new startOfDay();
-console.dir(startOfDay);
 
 function OfficeHours() {
 	this.startTime = moment("9", "HH");
@@ -37,9 +36,9 @@ _.extend(OfficeHours.prototype, {
 });
 
 function Scheduler() {
-	this.standingNotificationMoment = moment();
-	this.eyeNotificationMoment = moment();
-	this.waterNotificationMoment = moment();
+	this.standingNotificationMoment = moment().add(1, 'h');
+	this.eyeNotificationMoment = moment().add(20, 'm');
+	this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
 	this.lunchMode = moment();
 	this.inLunchMode = false;
 }
@@ -47,15 +46,15 @@ function Scheduler() {
 _.extend(Scheduler.prototype, {
 
 	scheduleNewStandingNotification: function() {
-		this.standingNotificationMoment = moment().add(10, 's');//.add(1, 'h');
+		this.standingNotificationMoment = moment().add(1, 'h');
 	},
 
 	scheduleNewEyeNotification: function() {
-		this.eyeNotificationMoment = moment().add(10, 's');//.add(20, 'm');
+		this.eyeNotificationMoment = moment().add(20, 'm');
 	},
 
 	scheduleNewWaterNotification: function() {
-		this.waterNotificationMoment = moment().add(10, 's');//.add(1, 'h').add(30, 'm');
+		this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
 	},	
 
 	shouldSendNotification: function() {
@@ -98,13 +97,10 @@ _.extend(Scheduler.prototype, {
 			// Initate Lunch Mode
 			console.log('lunchMode on');
 			this.inLunchMode = true;
-			this.lunchMode = moment().add(10, 's');
-			this.standingNotificationMoment = moment().add(20, 's');
-			this.eyeNotificationMoment = moment().add(15, 's');
-			this.waterNotificationMoment = moment().add(25, 's');
-		} else  {
-			// Exiting Lunch Mode
-
+			this.lunchMode = moment().add(1, 'h');
+			this.standingNotificationMoment = moment().add(2, 'h');
+			this.eyeNotificationMoment = moment().add(1, 'h').add(20, 'm');
+			this.waterNotificationMoment = moment().add(2, 'h').add(30, 'm');
 		}
 	}
 });
