@@ -1,5 +1,3 @@
-'use strict'
-
 /* Add model code here */
 
 function startOfDay() {
@@ -10,7 +8,7 @@ console.dir(startOfDay);
 
 function OfficeHours() {
 	this.startTime = moment("9", "HH");
-	this.endTime = moment("17", "HH");
+	this.endTime = moment("18", "HH");
 }
 
 _.extend(OfficeHours.prototype, {
@@ -39,27 +37,39 @@ _.extend(OfficeHours.prototype, {
 });
 
 function Scheduler() {
-	this.standingNotificationMoment = moment().add(1, 'h');
-	this.eyeNotificationMoment = moment().add(20, 'm');
-	this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
+	this.standingNotificationMoment = moment();
+	this.eyeNotificationMoment = moment();
+	this.waterNotificationMoment = moment();
+	this.lunchMode = moment();
+	this.inLunchMode = false;
 }
 
 _.extend(Scheduler.prototype, {
 
 	scheduleNewStandingNotification: function() {
-		this.standingNotificationMoment = moment().add(1, 'h');
+		this.standingNotificationMoment = moment().add(10, 's');//.add(1, 'h');
 	},
 
 	scheduleNewEyeNotification: function() {
-		this.eyeNotificationMoment = moment().add(20, 'm');
+		this.eyeNotificationMoment = moment().add(10, 's');//.add(20, 'm');
 	},
 
 	scheduleNewWaterNotification: function() {
-		this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
+		this.waterNotificationMoment = moment().add(10, 's');//.add(1, 'h').add(30, 'm');
 	},	
 
 	shouldSendNotification: function() {
 		var currentMoment = moment();
+
+		// Lunch Mode handler
+		if (this.inLunchMode) {
+			if (currentMoment.isAfter(this.lunchMode)) {
+				this.inLunchMode = false;
+				console.log('lunchMode off');
+			}
+		}
+
+
 		if (currentMoment.isBetween(officeHours.startTime, officeHours.endTime)) {
 		
 			var calledStanding = false, calledEye = false, calledWater = false;
@@ -81,6 +91,21 @@ _.extend(Scheduler.prototype, {
 				calledWater = true;
 				this.scheduleNewWaterNotification();
 			}
+		}
+	},
+
+	updateLunchMode: function() {
+		if (!this.inLunchMode) {
+			// Initate Lunch Mode
+			console.log('lunchMode on');
+			this.inLunchMode = true;
+			this.lunchMode = moment().add(10, 's');
+			this.standingNotificationMoment = moment().add(20, 's');
+			this.eyeNotificationMoment = moment().add(15, 's');
+			this.waterNotificationMoment = moment().add(25, 's');
+		} else  {
+			// Exiting Lunch Mode
+
 		}
 	}
 });

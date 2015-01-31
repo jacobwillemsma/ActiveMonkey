@@ -1,5 +1,3 @@
-'use strict'
-
 var notID = 0;
 
 var notTypes = {
