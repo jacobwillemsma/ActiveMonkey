@@ -10,7 +10,7 @@ function createNotification () {
 	     }, function() {})
 }
 
-var button = document.getElementById('timeSubmitButton');
+var button = document.getElementById('updateButton');
 
 button.addEventListener('click', function() {
 	createNotification();
