@@ -3,31 +3,38 @@
 /* Add model code here */
 
 function startOfDay() {
-	this.date = new Date(2015, 1, 1, 0, 0, 0, 0);
+	this.moment = moment("0:00", "HH:mm");
 }
 startOfDay = new startOfDay();
+console.dir(startOfDay);
 
 function OfficeHours() {
-	this.startTime = new Date();
-	this.endTime = new Date();
+	this.startTime = moment();
+	this.endTime = moment();
 }
 
 _.extend(OfficeHours.prototype, {
 
-	updateStartTime: function(timeString) {
-		console.log();
-		var date = new Date(2015, 1, 1, parseInt(timeString), 0, 0, 0);
-		this.startTime = date;
-
-		console.dir(this.startTime);
+	updateStartTime: function(momentObj) {
+		this.startTime = momentObj;
 	},
 
-	updateEndTime: function(timeString) {
-		console.log();
-		var date = new Date(2015, 1, 1, parseInt(timeString), 0, 0, 0);
-		this.endTime = date;
+	updateEndTime: function(momentObj) {
+		this.endTime = momentObj;
+	},
 
-		console.dir(this.endTime);
+	getMomentFromString: function(timeString) {
+		var d = new Date();
+		var time = timeString.match(/(\d+)(?::(\d\d))?\s*(p?)/);
+		console.log(time);
+		d.setHours( parseInt(time[1]) + (time[3] ? 12 : 0) );
+		d.setMinutes( parseInt(time[2]) || 0 );
+		d.setSeconds(0);
+		console.dir(d);
+		var mom = moment(d);
+		console.dir(mom);
+
+		return mom;
 	}
 
 });
