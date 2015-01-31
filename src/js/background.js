@@ -1,8 +1,8 @@
 'use strict'
 
-
+var officeHours = new OfficeHours();
 var scheduler = new Scheduler();
 
 setInterval(function() {
 	scheduler.shouldSendNotification();
-}, 1000);
+}, 3000);
