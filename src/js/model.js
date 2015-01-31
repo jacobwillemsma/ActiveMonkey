@@ -53,6 +53,7 @@ _.extend(Scheduler.prototype, {
 		var currentMoment = moment();
 		if (currentMoment.isAfter(this.standingNotificationMoment)) {
 			// Send new standing notification
+			createNotification();
 			this.scheduleNewStandingNotification();
 		}
 	}

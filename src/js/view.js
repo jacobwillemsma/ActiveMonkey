@@ -29,5 +29,5 @@ window.addEventListener('load', function() {
 
 	setInterval(function() {
 		scheduler.shouldSendNotification();
-	}, 10000); // Change to 30 second interval
+	}, 1000); // Change to 30 second interval
 });

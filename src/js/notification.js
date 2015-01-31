@@ -1,17 +1,31 @@
 'use strict'
 
-var notId = 0;
+var notID = 0;
 
-function notificationBtnClick(notID, iBtn) {
-	console.log("The notification '" + notID + "' had button " + iBtn + " clicked");
-	chrome.tabs.create( {
+function buttonClickRedirect(notID, iBtn) {
+	console.log("The notification '" + notID + " had button " + iBtn + " clicked");
+	console.log("Redirection to different page");
+	chrome.tabs.create({
 		url: 'https://www.google.ca/search?q=timer%202%20minutes&rct=j',
-	}, function() {} );
+	}, function() {})
+}
+
+function buttonClickClear(notID, iBtn) {
+	chrome.notifications.clear(notID, function(wasCleared) {
+		console.log("Notification " + notID + " cleared: " + wasCleared);
+	});
 }
 
 window.addEventListener("load", function() { 
-	chrome.notifications.onButtonClicked.addListener(notificationBtnClick);
+	
+	//chrome.notifications.onButtonClicked.addListener(buttonClickRedirect);
 });
+
+function createFunctionCallback(notID) {
+	console.log(notID);
+	chrome.notifications.onButtonClicked.addListener(buttonClickClear);
+	chrome.notifications.onButtonClicked.addListener(buttonClickRedirect);
+}
 
 function createNotification () {
 
@@ -26,13 +40,5 @@ function createNotification () {
 		}]
 	}
 
-	chrome.notifications.create('id' + notId++, options , function() {});
+	chrome.notifications.create('id' + notID++, options , createFunctionCallback);
 }
-
-var button = document.getElementById('updateButton');
-
-button.addEventListener('click', function() {
-	createNotification();
-});
-
-
