@@ -9,17 +9,18 @@
     <div id="officeHours">
         <h3> Office Hours </h3><br>
         <table>
-            <tr><td>Enter:</td> <td><input type="text" name="enter" placeholder="9:00"><br></td></tr>
+            <tr><td>Enter:</td> <td><input id="enterTextField" type="text" name="enter" placeholder="9"><br></td></tr>
             <tr><td>&nbsp</td><td>&nbsp</td></tr>
-            <tr><td>Exit: </td> <td><input type="text" name="exit" placeholder="17:00"><br></td></tr>
+            <tr><td>Exit: </td> <td><input id="exitTextField" type="text" name="exit" placeholder="17"><br></td></tr>
         </table>
     </div>
     <br>
 
-    <button id="timeSubmitButton" type="button" class="btn btn-default">Update</button>
+    <button id="updateButton" type="button" class="btn btn-default">Update</button>
 </div>
 </body>
 
+<script src="js/underscore.js"></script>
 <script src="js/view.js"></script>
 <script src="js/model.js"></script>
 <script src="js/notification.js"></script>
