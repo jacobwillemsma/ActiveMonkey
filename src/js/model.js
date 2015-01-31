@@ -40,6 +40,8 @@ _.extend(OfficeHours.prototype, {
 
 function Scheduler() {
 	this.standingNotificationMoment = moment();
+	this.eyeNotificationMoment = moment();
+	this.waterNotificationMoment = moment();
 }
 
 _.extend(Scheduler.prototype, {
@@ -48,12 +50,34 @@ _.extend(Scheduler.prototype, {
 		this.standingNotificationMoment = moment().add(1, 'h');
 	},
 
+	scheduleNewEyeNotification: function() {
+		this.eyeNotificationMoment = moment().add(20, 'm');
+	},
+
+	scheduleNewWaterNotification: function() {
+		this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
+	},	
+
 	shouldSendNotification: function() {
 		var currentMoment = moment();
+		var calledStanding = false, calledEye = false, calledWater = false;
 		if (currentMoment.isAfter(this.standingNotificationMoment)) {
 			// Send new standing notification
 			createNotification();
+			calledStanding = true;
 			this.scheduleNewStandingNotification();
+		} else if (currentMoment.isAfter(this.eyeNotificationMoment)) {
+			if (!calledStanding) {
+				createNotification();				
+			}
+			calledEye = true;
+			this.scheduleNewEyeNotification();
+		} else if (currentMoment.isAfter(this.eyeNotificationMoment)) {
+			if (!calledEye && !calledStanding) {
+				createNotification();
+			}
+			calledWater = true;
+			this.scheduleNewWaterNotification();
 		}
 	}
 });
