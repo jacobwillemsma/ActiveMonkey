@@ -36,5 +36,24 @@ _.extend(OfficeHours.prototype, {
 
 		return mom;
 	}
+});
 
+function Scheduler() {
+	this.standingNotificationMoment = moment();
+}
+
+_.extend(Scheduler.prototype, {
+
+	scheduleNewStandingNotification: function() {
+		console.log('scheduled standing notification');
+		this.standingNotificationMoment = moment().add(1, 'h');
+	},
+
+	shouldSendNotification: function() {
+		var currentMoment = moment();
+		if (currentMoment.isAfter(this.standingNotificationMoment)) {
+			// Send new standing notification
+			this.scheduleNewStandingNotification();
+		}
+	}
 });
