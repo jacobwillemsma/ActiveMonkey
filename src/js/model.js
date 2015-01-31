@@ -42,6 +42,7 @@ function Scheduler() {
 	this.standingNotificationMoment = moment().add(1, 'h');
 	this.eyeNotificationMoment = moment().add(20, 'm');
 	this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
+	this.lunchEndMoment = moment();
 }
 
 _.extend(Scheduler.prototype, {
@@ -61,7 +62,6 @@ _.extend(Scheduler.prototype, {
 	shouldSendNotification: function() {
 		var currentMoment = moment();
 		if (currentMoment.isBetween(officeHours.startTime, officeHours.endTime)) {
-		
 			var calledStanding = false, calledEye = false, calledWater = false;
 			if (currentMoment.isAfter(this.standingNotificationMoment)) {
 				// Send new standing notification
@@ -82,5 +82,11 @@ _.extend(Scheduler.prototype, {
 				this.scheduleNewWaterNotification();
 			}
 		}
-	}
+	},
+
+	updateLunchMode: function() {
+		if (moment().isAfter(lunchEndMoment)) {
+			lunchModeIsOn = false;
+		}
+	},
 });
