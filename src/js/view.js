@@ -4,7 +4,6 @@
 
 window.addEventListener('load', function() {
 	var officeHours = new OfficeHours();
-	var scheduler = new Scheduler();
 
 	var update = document.getElementById('updateButton');
 	var enterTextField = document.getElementById('enterTextField');
@@ -26,8 +25,4 @@ window.addEventListener('load', function() {
 		enterTextField.value="";
 		exitTextField.value="";
 	});
-
-	setInterval(function() {
-		scheduler.shouldSendNotification();
-	}, 1000); // Change to 30 second interval
 });
