@@ -45,7 +45,6 @@ function Scheduler() {
 _.extend(Scheduler.prototype, {
 
 	scheduleNewStandingNotification: function() {
-		console.log('scheduled standing notification');
 		this.standingNotificationMoment = moment().add(1, 'h');
 	},
 

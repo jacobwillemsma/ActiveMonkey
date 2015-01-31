@@ -1,20 +1,24 @@
 {
-  "name": "KickMeFit",
-  "version": "0.1",
-  "description": "KickMeFit helps all people who sit and work on computers maintain healthy habits and to avoid the dangers of a sedentary job.",
-  "icons": { 
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png" 
-  },
-  "browser_action": {
-    "default_icon":  "icons/icon19.png",
-    "default_title": "Action Title",
-    "default_popup": "src/popup.html"
-  },
-  "permissions": [
-    "notifications"
-  ],
-
-  "manifest_version": 2
+    "name": "KickMeFit",
+    "version": "0.1",
+    "description": "KickMeFit helps all people who sit and work on computers maintain healthy habits and to avoid the dangers of a sedentary job.",
+    "background": {
+        "scripts": ["src/js/underscore.js", "src/js/moment.min.js", "src/js/model.js", "src/js/notification.js", "src/js/background.js"]
+    },
+    "icons": { 
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png" 
+    },
+    "browser_action": {
+        "default_icon":  "icons/icon19.png",
+        "default_title": "Action Title",
+        "default_popup": "src/popup.html"
+    },
+    "permissions": [
+        "background",
+        "notifications",
+        "tabs"
+    ],
+    "manifest_version": 2
 }
