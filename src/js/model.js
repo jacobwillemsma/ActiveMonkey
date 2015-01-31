@@ -63,18 +63,18 @@ _.extend(Scheduler.prototype, {
 		var calledStanding = false, calledEye = false, calledWater = false;
 		if (currentMoment.isAfter(this.standingNotificationMoment)) {
 			// Send new standing notification
-			createNotification();
+			createNotification("standUp");
 			calledStanding = true;
 			this.scheduleNewStandingNotification();
 		} else if (currentMoment.isAfter(this.eyeNotificationMoment)) {
 			if (!calledStanding) {
-				createNotification();				
+				createNotification("relaxEyes");				
 			}
 			calledEye = true;
 			this.scheduleNewEyeNotification();
-		} else if (currentMoment.isAfter(this.eyeNotificationMoment)) {
+		} else if (currentMoment.isAfter(this.waterNotificationMoment)) {
 			if (!calledEye && !calledStanding) {
-				createNotification();
+				createNotification("getWater");
 			}
 			calledWater = true;
 			this.scheduleNewWaterNotification();
