@@ -2,7 +2,17 @@
 
 var notId = 0;
 
-/* Add notification code here */
+function notificationBtnClick(notID, iBtn) {
+	console.log("The notification '" + notID + "' had button " + iBtn + " clicked");
+	chrome.tabs.create( {
+		url: 'https://www.google.ca/search?q=timer%202%20minutes&rct=j',
+	}, function() {} );
+}
+
+window.addEventListener("load", function() { 
+	chrome.notifications.onButtonClicked.addListener(notificationBtnClick);
+});
+
 function createNotification () {
 
 	var options = {
@@ -11,11 +21,12 @@ function createNotification () {
 		message: "You've been sitting down for an hour, why don't you go for a quick two minute walk around the office?",
 		iconUrl: "../icons/icon128.png",
 		buttons: [{ 
-			title: "Click here to launch a timer!" 
+			title: "Click here to launch a timer!",
+			iconUrl: "../icons/clock16.png"
 		}]
 	}
 
-	chrome.notifications.create('id' + notId++, options , function() {})
+	chrome.notifications.create('id' + notId++, options , function() {});
 }
 
 var button = document.getElementById('updateButton');
@@ -23,3 +34,5 @@ var button = document.getElementById('updateButton');
 button.addEventListener('click', function() {
 	createNotification();
 });
+
+
