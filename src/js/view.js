@@ -3,7 +3,6 @@
 /* Add view code here */
 
 window.addEventListener('load', function() {
-	var officeHours = new OfficeHours();
 
 	var update = document.getElementById('updateButton');
 	var enterTextField = document.getElementById('enterTextField');

@@ -9,8 +9,8 @@ startOfDay = new startOfDay();
 console.dir(startOfDay);
 
 function OfficeHours() {
-	this.startTime = moment();
-	this.endTime = moment();
+	this.startTime = moment("9", "HH");
+	this.endTime = moment("17", "HH");
 }
 
 _.extend(OfficeHours.prototype, {
@@ -39,9 +39,9 @@ _.extend(OfficeHours.prototype, {
 });
 
 function Scheduler() {
-	this.standingNotificationMoment = moment();
-	this.eyeNotificationMoment = moment();
-	this.waterNotificationMoment = moment();
+	this.standingNotificationMoment = moment().add(1, 'h');
+	this.eyeNotificationMoment = moment().add(20, 'm');
+	this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
 }
 
 _.extend(Scheduler.prototype, {
@@ -60,24 +60,27 @@ _.extend(Scheduler.prototype, {
 
 	shouldSendNotification: function() {
 		var currentMoment = moment();
-		var calledStanding = false, calledEye = false, calledWater = false;
-		if (currentMoment.isAfter(this.standingNotificationMoment)) {
-			// Send new standing notification
-			createNotification("standUp");
-			calledStanding = true;
-			this.scheduleNewStandingNotification();
-		} else if (currentMoment.isAfter(this.eyeNotificationMoment)) {
-			if (!calledStanding) {
-				createNotification("relaxEyes");				
+		if (currentMoment.isBetween(officeHours.startTime, officeHours.endTime)) {
+		
+			var calledStanding = false, calledEye = false, calledWater = false;
+			if (currentMoment.isAfter(this.standingNotificationMoment)) {
+				// Send new standing notification
+				createNotification("standUp");
+				calledStanding = true;
+				this.scheduleNewStandingNotification();
+			} else if (currentMoment.isAfter(this.eyeNotificationMoment)) {
+				if (!calledStanding) {
+					createNotification("relaxEyes");				
+				}
+				calledEye = true;
+				this.scheduleNewEyeNotification();
+			} else if (currentMoment.isAfter(this.waterNotificationMoment)) {
+				if (!calledEye && !calledStanding) {
+					createNotification("getWater");
+				}
+				calledWater = true;
+				this.scheduleNewWaterNotification();
 			}
-			calledEye = true;
-			this.scheduleNewEyeNotification();
-		} else if (currentMoment.isAfter(this.waterNotificationMoment)) {
-			if (!calledEye && !calledStanding) {
-				createNotification("getWater");
-			}
-			calledWater = true;
-			this.scheduleNewWaterNotification();
 		}
 	}
 });
