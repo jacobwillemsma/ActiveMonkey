@@ -3,9 +3,10 @@
 /* Add model code here */
 
 function startOfDay() {
-	this.date = new Date(2015, 1, 1, 0, 0, 0, 0);
+	this.moment = moment("0:00", "HH:mm");
 }
 startOfDay = new startOfDay();
+console.dir(startOfDay);
 
 function OfficeHours() {
 	this.startTime = moment();
