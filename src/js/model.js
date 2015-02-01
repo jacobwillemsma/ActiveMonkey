@@ -8,9 +8,34 @@ startOfDay = new startOfDay();
 function OfficeHours() {
 	this.startTime = moment("9", "HH");
 	this.endTime = moment("17", "HH");
+	chrome.storage.local.get("startTime", function(obj) {
+		console.dir(obj);
+		if (obj !== undefined) {
+			this.startTime = getMomentFromString(obj.startTime);
+		}
+	});
+	chrome.storage.local.get("endTime", function(obj) {
+		console.dir(obj);
+		if (obj !== undefined) {
+			this.endTime = getMomentFromString(obj.endTime);
+		}
+	});
 }
 
 _.extend(OfficeHours.prototype, {
+
+	makeOfficeHours: function(startTime, endTime) {
+		this.startTime = moment(startTime);
+		this.endTime = moment(endTime);
+	},
+
+	getStartTime: function() {
+		return this.startTime;
+	},
+
+	getEndTime: function() {
+		return this.endTime;
+	},
 
 	updateStartTime: function(momentObj) {
 		this.startTime = momentObj;

@@ -18,6 +18,7 @@
     "permissions": [
         "background",
         "notifications",
+        "storage",
         "tabs"
     ],
     "manifest_version": 2

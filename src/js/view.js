@@ -14,8 +14,20 @@ window.addEventListener('load', function() {
 		lunchButton.style = "background: rgb(231, 142, 47);";
 	}
 
-	enterTimeSpan.innerText = officeHours.startTime.format("h:mm a");
-	exitTimeSpan.innerText = officeHours.endTime.format("h:mm a");
+	chrome.storage.local.get("startTime", function(obj) {
+		var startTime = obj.startTime;
+		console.dir(startTime);
+		var startTimeMoment = officeHours.getMomentFromString(startTime);
+		officeHours.updateStartTime(startTimeMoment);
+		enterTimeSpan.innerText = officeHours.startTime.format("h:mm a");
+	});
+	chrome.storage.local.get("endTime", function(obj) {
+		var endTime = obj.endTime;
+		console.dir(endTime);
+		var endTimeMoment = officeHours.getMomentFromString(endTime);
+		officeHours.updateEndTime(endTimeMoment);
+		exitTimeSpan.innerText = officeHours.endTime.format("h:mm a");
+	});
 
 	lunchButton.addEventListener('click', function() {
 		scheduler.updateLunchMode();
@@ -32,6 +44,9 @@ window.addEventListener('load', function() {
 			var endMoment = officeHours.getMomentFromString(exitTextField.value);
 			officeHours.updateEndTime(endMoment);
 		}
+
+		chrome.storage.local.set({"startTime" : officeHours.getStartTime().format("h:mm a")});
+		chrome.storage.local.set({"endTime" : officeHours.getEndTime().format("h:mm a")});
 
 		enterTimeSpan.innerText = officeHours.startTime.format("h:mm a");
 		exitTimeSpan.innerText = officeHours.endTime.format("h:mm a");
