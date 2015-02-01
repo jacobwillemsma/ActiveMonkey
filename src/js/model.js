@@ -7,7 +7,7 @@ startOfDay = new startOfDay();
 
 function OfficeHours() {
 	this.startTime = moment("9", "HH");
-	this.endTime = moment("17", "HH");
+	this.endTime = moment("24", "HH");
 	chrome.storage.local.get("startTime", function(obj) {
 		console.dir(obj);
 		if (obj.startTime !== undefined) {
@@ -73,9 +73,9 @@ _.extend(OfficeHours.prototype, {
 });
 
 function Scheduler() {
-	this.standingNotificationMoment = moment();//.add(1, 'h');
-	this.eyeNotificationMoment = moment();//.add(20, 'm');
-	this.waterNotificationMoment = moment();//.add(1, 'h').add(30, 'm');
+	this.standingNotificationMoment = moment().add(1, 'h');
+	this.eyeNotificationMoment = moment().add(20, 'm');
+	this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
 	this.lunchMode = moment();
 	this.inLunchMode = false;
 
