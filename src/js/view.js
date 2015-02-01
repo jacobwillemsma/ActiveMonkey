@@ -6,6 +6,11 @@ window.addEventListener('load', function() {
 	var enterTextField = document.getElementById('enterTextField');
 	var exitTextField = document.getElementById('exitTextField');
 	var lunchButton = document.getElementById('lunchButton');
+	var enterTimeSpan = document.getElementById('enterTimeSpan');
+	var exitTimeSpan = document.getElementById('exitTimeSpan');
+
+	enterTimeSpan.innerText = officeHours.startTime.format("h:mm a");
+	exitTimeSpan.innerText = officeHours.endTime.format("h:mm a");
 
 	lunchButton.addEventListener('click', function() {
 		scheduler.updateLunchMode();
@@ -22,6 +27,9 @@ window.addEventListener('load', function() {
 			var endMoment = officeHours.getMomentFromString(exitTextField.value);
 			officeHours.updateEndTime(endMoment);
 		}
+
+		enterTimeSpan.innerText = officeHours.startTime.format("h:mm a");
+		exitTimeSpan.innerText = officeHours.endTime.format("h:mm a");
 
 		enterTextField.value="";
 		exitTextField.value="";

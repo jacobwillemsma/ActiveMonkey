@@ -3,15 +3,22 @@
     <link rel="stylesheet" type="text/css" href="css/custom.css">
 </head>
 <body>
-<div >
-    <p id="title"><b>Settings</b></p>
+<div>
+    <div id="titleBlock">
+        <p id="title"><b>KickMeFit</b></p>
+    </div>
 
     <div id="officeHours">
-        <h3> Office Hours </h3><br>
+        <h4> Office Hours </h4>
+
+        <p id="currentOH">
+        Currently <span id="enterTimeSpan">?</span> to <span id="exitTimeSpan">?</span>
+        </p>
+
         <table>
-            <tr><td>Enter:</td> <td><input id="enterTextField" type="text" name="enter" placeholder="9:00am"><br></td></tr>
+            <tr><td>Enter:&nbsp&nbsp</td> <td><input id="enterTextField" type="text" name="enter" placeholder="9:00am"><br></td></tr>
             <tr><td>&nbsp</td><td>&nbsp</td></tr>
-            <tr><td>Exit: </td> <td><input id="exitTextField" type="text" name="exit" placeholder="5:00pm"><br></td></tr>
+            <tr><td>Exit:</td> <td><input id="exitTextField" type="text" name="exit" placeholder="5:00pm"><br></td></tr>
         </table>
     </div>
     <br>
