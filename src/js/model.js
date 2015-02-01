@@ -73,9 +73,9 @@ _.extend(OfficeHours.prototype, {
 });
 
 function Scheduler() {
-	this.standingNotificationMoment = moment().add(1, 'h');
-	this.eyeNotificationMoment = moment().add(20, 'm');
-	this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
+	this.standingNotificationMoment = moment();//.add(1, 'h');
+	this.eyeNotificationMoment = moment();//.add(20, 'm');
+	this.waterNotificationMoment = moment();//.add(1, 'h').add(30, 'm');
 	this.lunchMode = moment();
 	this.inLunchMode = false;
 

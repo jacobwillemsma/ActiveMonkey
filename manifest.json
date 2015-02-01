@@ -1,7 +1,7 @@
 {
-    "name": "KickMeFit",
-    "version": "0.1",
-    "description": "KickMeFit helps all people who sit and work on computers maintain healthy habits and to avoid the dangers of a sedentary job.",
+    "name": "ActiveMonkey",
+    "version": "1.0",
+    "description": "ActiveMonkey helps people who sit and work on computers to maintain healthy habits and avoid the dangers of a sedentary job.",
     "background": {
         "scripts": ["src/js/underscore.js", "src/js/moment.min.js", "src/js/model.js", "src/js/notification.js", "src/js/background.js"]
     },
@@ -12,7 +12,7 @@
     },
     "browser_action": {
         "default_icon":  "icons/icon19.png",
-        "default_title": "Action Title",
+        "default_title": "ActiveMonkey",
         "default_popup": "src/popup.html"
     },
     "permissions": [
