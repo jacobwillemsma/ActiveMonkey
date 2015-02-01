@@ -7,7 +7,7 @@ startOfDay = new startOfDay();
 
 function OfficeHours() {
 	this.startTime = moment("9", "HH");
-	this.endTime = moment("18", "HH");
+	this.endTime = moment("22", "HH");
 }
 
 _.extend(OfficeHours.prototype, {
