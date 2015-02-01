@@ -1,9 +1,46 @@
 body {
 	min-width: 200px;
+	padding:0px;
+}
+
+#titleBlock {
+	padding:20px;
+	padding-top: 25px;
+	background: rgb(231, 142, 47);
+	box-shadow: 0px 4px 5px #888888;
+}
+#title {
+	padding:0px;
+	font-size: 26px;
+	color: white;
+}
+
+#dropshadow {
+	height: 2px;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+#officeHours {
 	padding:20px;
 }
 
-#title {
-	padding:0px;
-	font-size: 30px;
+#currentOH {
+	font-size: 12px;
+}
+
+h4 {
+	font-size: 20px;
+}
+
+#updateButton, #lunchButton {
+	width:100%;
+	margin:auto;
+	margin-bottom: 8px;
+	border-radius: 0px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+}
+
+#updateButton:hover, #lunchButton:hover {
+	background: rgb(231, 142, 47);
 }
