@@ -1,6 +1,6 @@
 {
     "name": "ActiveMonkey",
-    "version": "1.0",
+    "version": "1.0.1",
     "description": "ActiveMonkey helps people who sit and work on computers to maintain healthy habits and avoid the dangers of a sedentary job.",
     "background": {
         "scripts": ["src/js/underscore.js", "src/js/moment.min.js", "src/js/model.js", "src/js/notification.js", "src/js/background.js"]
