@@ -65,6 +65,8 @@ _.extend(Scheduler.prototype, {
 			if (currentMoment.isAfter(this.lunchMode)) {
 				this.inLunchMode = false;
 				console.log('lunchMode off');
+				var button = document.getElementById('lunchButton');
+				button.innerText = "Turn Lunch Mode On";
 			}
 		}
 
@@ -97,6 +99,8 @@ _.extend(Scheduler.prototype, {
 			// Initate Lunch Mode
 			console.log('lunchMode on');
 			this.inLunchMode = true;
+			var button = document.getElementById('lunchButton');
+			button.innerHTML = "Lunch Mode <b>On</b>";
 			this.lunchMode = moment().add(1, 'h');
 			this.standingNotificationMoment = moment().add(2, 'h');
 			this.eyeNotificationMoment = moment().add(1, 'h').add(20, 'm');

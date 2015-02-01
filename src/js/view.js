@@ -9,6 +9,11 @@ window.addEventListener('load', function() {
 	var enterTimeSpan = document.getElementById('enterTimeSpan');
 	var exitTimeSpan = document.getElementById('exitTimeSpan');
 
+	if (scheduler.inLunchMode) {
+		console.log('inLunchMode');
+		lunchButton.style = "background: rgb(231, 142, 47);";
+	}
+
 	enterTimeSpan.innerText = officeHours.startTime.format("h:mm a");
 	exitTimeSpan.innerText = officeHours.endTime.format("h:mm a");
 
