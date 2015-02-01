@@ -8,7 +8,7 @@ var notTypes = {
 		iconUrl: "../icons/icon128.png",
 		buttons: [{ 
 			title: "Click here to launch a timer!",
-			iconUrl: "../icons/clock16.png"
+			iconUrl: "../icons/clock150.png"
 		}]
 	},
 	"getWater" : {
@@ -24,7 +24,7 @@ var notTypes = {
 		iconUrl: "../icons/icon128.png",
 		buttons: [{ 
 			title: "Click here to launch a timer!",
-			iconUrl: "../icons/clock16.png"
+			iconUrl: "../icons/clock150.png"
 		}]
 	},
 }
