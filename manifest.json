@@ -12,7 +12,7 @@
     },
     "browser_action": {
         "default_icon":  "icons/icon19.png",
-        "default_title": "Action Title",
+        "default_title": "KickMeFit",
         "default_popup": "src/popup.html"
     },
     "permissions": [
