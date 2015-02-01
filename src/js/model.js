@@ -10,14 +10,26 @@ function OfficeHours() {
 	this.endTime = moment("17", "HH");
 	chrome.storage.local.get("startTime", function(obj) {
 		console.dir(obj);
-		if (obj !== undefined) {
+		if (obj.startTime !== undefined) {
+			console.log("start");
 			this.startTime = getMomentFromString(obj.startTime);
+			var enterTimeSpan = document.getElementById('enterTimeSpan');
+			enterTimeSpan.innerText = this.startTime;
+		} else {
+			var enterTimeSpan = document.getElementById('enterTimeSpan');
+			enterTimeSpan.innerText = moment("9", "HH").format("h:mm a");
 		}
 	});
 	chrome.storage.local.get("endTime", function(obj) {
 		console.dir(obj);
-		if (obj !== undefined) {
+		if (obj.endTime !== undefined) {
+			console.log("end");
 			this.endTime = getMomentFromString(obj.endTime);
+			var exitTimeSpan = document.getElementById('exitTimeSpan');
+			exitTimeSpan.innerText = this.endTime;
+		}  else {
+			var exitTimeSpan = document.getElementById('exitTimeSpan');
+			exitTimeSpan.innerText = moment("17", "HH").format("h:mm a");
 		}
 	});
 }
@@ -66,6 +78,16 @@ function Scheduler() {
 	this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
 	this.lunchMode = moment();
 	this.inLunchMode = false;
+
+	chrome.storage.local.get("lunchModeOn", function(obj) {
+		console.dir(obj);
+		if (obj.lunchModeOn != undefined) {
+			console.log("lunch");
+			this.inLunchMode = obj.lunchModeOn;
+			var lunchButton = document.getElementById('lunchButton');
+			lunchButton.innerHTML = "Lunch Mode <b>On</b>";
+		}
+	});
 }
 
 _.extend(Scheduler.prototype, {
@@ -89,6 +111,7 @@ _.extend(Scheduler.prototype, {
 		if (this.inLunchMode) {
 			if (currentMoment.isAfter(this.lunchMode)) {
 				this.inLunchMode = false;
+				chrome.storage.local.set({"lunchModeOn" : false});
 				console.log('lunchMode off');
 				var button = document.getElementById('lunchButton');
 				button.innerText = "Turn Lunch Mode On";
@@ -124,6 +147,7 @@ _.extend(Scheduler.prototype, {
 			// Initate Lunch Mode
 			console.log('lunchMode on');
 			this.inLunchMode = true;
+			chrome.storage.local.set({"lunchModeOn" : true});
 			var button = document.getElementById('lunchButton');
 			button.innerHTML = "Lunch Mode <b>On</b>";
 			this.lunchMode = moment().add(1, 'h');
