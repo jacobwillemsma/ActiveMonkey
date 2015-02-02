@@ -1,6 +1,8 @@
-var notID = 0;
+/* Notifications */
 
-var notTypes = {
+var notID = 0;
+var whichTimer = 2;  // 2 for 2 Minutes, 20 for 20 Seconds.
+var notificationTypes = {
 	"standUp" : {
 		type : "basic",
 		title: "Get Up and Move Around!",
@@ -29,52 +31,49 @@ var notTypes = {
 	},
 }
 
-function buttonClickRedirect20Secs(notID, iBtn) {
-	chrome.tabs.create({
-		url: 'https://www.google.ca/search?q=timer%2020%20seconds&es_th=1&rct=j',
-	}, function() {})
-}
-function buttonClickRedirect2Mins(notID, iBtn) {
-	chrome.tabs.create({
-		url: 'https://www.google.ca/search?q=timer%202%20minutes&rct=j',
-	}, function() {})
-}
-
-function buttonClickClear(notID, iBtn) {
-	chrome.notifications.clear(notID, function() {});
-}
-
-function createFunctionCallbackRedirect20Secs(notID) {
+function createNotificationCallback(notID) {
+	console.log("Created notification with ID " + notID);
+	chrome.notifications.onButtonClicked.addListener(clickButtonHandler);
 	setTimeout(function() {
 		chrome.notifications.clear(notID, function() {});
 	}, 120000);
-	chrome.notifications.onButtonClicked.addListener(buttonClickClear);
-	chrome.notifications.onButtonClicked.addListener(buttonClickRedirect20Secs);
 }
 
-function createFunctionCallbackRedirect2Mins(notID) {
-	setTimeout(function() {
-		chrome.notifications.clear(notID, function() {});
-	}, 120000);
-	chrome.notifications.onButtonClicked.addListener(buttonClickClear);
-	chrome.notifications.onButtonClicked.addListener(buttonClickRedirect2Mins);
-}
-
-function createFunctionCallbackNoRedirect(notID) {
-	setTimeout(function() {
-		chrome.notifications.clear(notID, function() {});
-	}, 10000);
+function clickButtonHandler(notID) {
+	chrome.notifications.clear(notID, function() {
+		if (whichTimer === 20) {
+			// Create 20 second Timer
+			chrome.tabs.create({
+				url: 'https://www.google.ca/search?q=timer%2020%20seconds&es_th=1&rct=j',
+			}, function() {
+				whichTimer = 0;
+			})
+		}
+		else if (whichTimer === 2) {
+				// Create 2 minute Timer
+				chrome.tabs.create({
+					url: 'https://www.google.ca/search?q=timer%202%20minutes&rct=j',
+				}, function() {
+					whichTimer = 0;
+				})
+		}
+		else {
+			console.log("Error Case.  The Timer is not being set properly.")
+		}
+	});
 }
 
 function createNotification (notName) {
-
-	if (notName === "standUp") {
-		chrome.notifications.create('id' + notID++, notTypes.standUp, createFunctionCallbackRedirect2Mins);
+	notID = notID + 1;
+	if (notName === "standUpNotification") {
+		whichTimer = 2;	
+		chrome.notifications.create('id' + notID, notificationTypes.standUp, createNotificationCallback);
 	}
-	else if (notName === "getWater") {
-		chrome.notifications.create('id' + notID++, notTypes.getWater, createFunctionCallbackNoRedirect);
+	else if (notName === "lookAwayNotification") {
+		whichTimer = 20;
+		chrome.notifications.create('id' + notID, notificationTypes.lookAway, createNotificationCallback);
 	}
 	else {
-		chrome.notifications.create('id' + notID++, notTypes.lookAway, createFunctionCallbackRedirect20Secs);
-	}
+		chrome.notifications.create('id' + notID, notificationTypes.getWater, createNotificationCallback);
+	}	
 }
