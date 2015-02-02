@@ -1,4 +1,4 @@
-/* Add model code here */
+/* Model */
 
 function startOfDay() {
 	this.moment = moment("0:00", "HH:mm");
@@ -122,19 +122,18 @@ _.extend(Scheduler.prototype, {
 		if (currentMoment.isBetween(officeHours.startTime, officeHours.endTime)) {
 			var calledStanding = false, calledEye = false, calledWater = false;
 			if (currentMoment.isAfter(this.standingNotificationMoment)) {
-				// Send new standing notification
-				createNotification("standUp");
+				createNotification("standUpNotification");
 				calledStanding = true;
 				this.scheduleNewStandingNotification();
 			} else if (currentMoment.isAfter(this.eyeNotificationMoment)) {
 				if (!calledStanding) {
-					createNotification("relaxEyes");				
+					createNotification("lookAwayNotification");				
 				}
 				calledEye = true;
 				this.scheduleNewEyeNotification();
 			} else if (currentMoment.isAfter(this.waterNotificationMoment)) {
 				if (!calledEye && !calledStanding) {
-					createNotification("getWater");
+					createNotification("getWaterNotification");
 				}
 				calledWater = true;
 				this.scheduleNewWaterNotification();
