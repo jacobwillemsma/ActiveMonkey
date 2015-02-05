@@ -1,7 +1,6 @@
 /* Add view code here */
 
 window.addEventListener('load', function() {
-
 	var update = document.getElementById('updateButton');
 	var enterTextField = document.getElementById('enterTextField');
 	var exitTextField = document.getElementById('exitTextField');
@@ -15,18 +14,10 @@ window.addEventListener('load', function() {
 	}
 
 	chrome.storage.local.get("startTime", function(obj) {
-		var startTime = obj.startTime;
-		console.dir(startTime);
-		var startTimeMoment = officeHours.getMomentFromString(startTime);
-		officeHours.updateStartTime(startTimeMoment);
-		enterTimeSpan.innerText = officeHours.startTime.format("h:mm a");
+		enterTimeSpan.innerText = obj.startTime;
 	});
 	chrome.storage.local.get("endTime", function(obj) {
-		var endTime = obj.endTime;
-		console.dir(endTime);
-		var endTimeMoment = officeHours.getMomentFromString(endTime);
-		officeHours.updateEndTime(endTimeMoment);
-		exitTimeSpan.innerText = officeHours.endTime.format("h:mm a");
+		exitTimeSpan.innerText = obj.endTime;
 	});
 
 	lunchButton.addEventListener('click', function() {
@@ -34,23 +25,62 @@ window.addEventListener('load', function() {
 	});
 	
 	update.addEventListener('click', function() {
-
-		console.log(enterTextField.value);
-		if (enterTextField.value != "") {
-			var startMoment = officeHours.getMomentFromString(enterTextField.value);
-			officeHours.updateStartTime(startMoment);
+		var newEnterTime, newExitTime;
+		if (enterTextField.value) {
+			var newStartMoment = officeHours.getMomentFromString(enterTextField.value);
+			console.log(newStartMoment.hour());
+			if (newStartMoment.hour() > 12) {
+				newEnterTime = (newStartMoment.hour() - 12) + ":" + newStartMoment.format("mm") + " pm";
+				officeHours.startTime = newEnterTime;
+				chrome.storage.local.set({"startTime" : officeHours.startTime});
+			}
+			else if (newStartMoment.hour() === 12 || newStartMoment.hour() === 0) {
+                if (newStartMoment.hour() === 12) {
+                    newEnterTime = "12:" + newStartMoment.format("mm") + " am";
+				    officeHours.startTime = newEnterTime;
+                    chrome.storage.local.set({"startTime" : officeHours.startTime});
+                }
+                else {
+                    newEnterTime = "12:" + newStartMoment.format("mm") + " pm";
+				    officeHours.startTime = newEnterTime;
+				    chrome.storage.local.set({"startTime" : officeHours.startTime});
+                }
+            }
+			else {
+                newEnterTime = newStartMoment.hour() + ":" + newStartMoment.format("mm") + " am";
+                officeHours.startTime = newEnterTime;
+                chrome.storage.local.set({"startTime" : officeHours.startTime});
+            }
+            enterTimeSpan.innerText = newEnterTime;
 		}
 		if (exitTextField.value != "") {
-			var endMoment = officeHours.getMomentFromString(exitTextField.value);
-			officeHours.updateEndTime(endMoment);
+			var newEndMoment = officeHours.getMomentFromString(exitTextField.value);
+			console.log(newEndMoment.hour());
+			if (newEndMoment.hour() > 12) {
+				newExitTime = (newEndMoment.hour() - 12) + ":" + newEndMoment.format("mm") + " pm";
+				officeHours.endTime = newExitTime;
+				chrome.storage.local.set({"endTime" : officeHours.endTime});
+			}
+			else if (newEndMoment.hour() === 12 || newEndMoment.hour() === 0) {
+                if (newEndMoment.hour() === 12) {
+                    newExitTime = "12:" + newEndMoment.format("mm") + " am";
+				    officeHours.endTime = newExitTime;
+                    chrome.storage.local.set({"endTime" : officeHours.endTime});
+                }
+                else {
+                    newExitTime = "12:" + newEndMoment.format("mm") + " pm";
+				    officeHours.endTime = newExitTime;
+				    chrome.storage.local.set({"endTime" : officeHours.endTime});
+                }
+            }
+			else {
+                newExitTime = newEndMoment.hour() + ":" + newEndMoment.format("mm") + " am";
+                officeHours.endTime = newExitTime;
+                chrome.storage.local.set({"endTime" : officeHours.endTime});
+			}
+            exitTimeSpan.innerText = newExitTime;
 		}
-
-		chrome.storage.local.set({"startTime" : officeHours.getStartTime().format("h:mm a")});
-		chrome.storage.local.set({"endTime" : officeHours.getEndTime().format("h:mm a")});
-
-		enterTimeSpan.innerText = officeHours.startTime.format("h:mm a");
-		exitTimeSpan.innerText = officeHours.endTime.format("h:mm a");
-
+		
 		enterTextField.value="";
 		exitTextField.value="";
 	});
