@@ -7,26 +7,26 @@ var notificationTypes = {
 		type : "basic",
 		title: "Get Up and Move Around!",
 		message: "You've been sitting down for an hour, why don't you go for a quick two minute walk around the office?",
-		iconUrl: "../icons/icon128.png",
+		iconUrl: "../images/icon128.png",
 		buttons: [{
 			title: "Click here to launch a timer!",
-			iconUrl: "../icons/clock150.png"
+			iconUrl: "../images/clock150.png"
 		}]
 	},
 	"getWater" : {
 		type : "basic",
 		title: "Go Fill Up Your Water Bottle!",
 		message: "Go for a quick walk and get some water to stay hydrated.",
-		iconUrl: "../icons/icon128.png"
+		iconUrl: "../images/icon128.png"
 	},
 	"lookAway" : {
 		type : "basic",
 		title: "Look Away for 20 Seconds!",
 		message: "Pick an object 20 feet away and look at for for 20 seconds!",
-		iconUrl: "../icons/icon128.png",
+		iconUrl: "../images/icon128.png",
 		buttons: [{
 			title: "Click here to launch a timer!",
-			iconUrl: "../icons/clock150.png"
+			iconUrl: "../images/clock150.png"
 		}]
 	}
 };

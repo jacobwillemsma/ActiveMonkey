@@ -125,6 +125,3 @@ _.extend(Scheduler.prototype, {
 		}
 	}
 });
-
-
-
