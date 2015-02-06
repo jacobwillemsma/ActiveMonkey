@@ -32,29 +32,27 @@ var notificationTypes = {
 };
 
 function createNotificationCallback(notID) {
-	console.log("Created notification with ID " + notID);
-	chrome.notifications.onButtonClicked.addListener(clickButtonHandler);
 	setTimeout(function() {
-		chrome.notifications.clear(notID, function() {});
+        chrome.notifications.clear(notID, function() {});
 	}, 120000);
 }
 
 function clickButtonHandler(notID) {
 	chrome.notifications.clear(notID, function() {
 		if (whichTimer === 20) {
-			// Create 20 second Timer
+            // Create 20 second Timer
 			chrome.tabs.create({
 				url: 'https://www.google.ca/search?q=timer%2020%20seconds&es_th=1&rct=j'
 			}, function() {
 				whichTimer = 0;
 			});
 		} else if (whichTimer === 2) {
-				// Create 2 minute Timer
-				chrome.tabs.create({
-					url: 'https://www.google.ca/search?q=timer%202%20minutes&rct=j'
-				}, function() {
-					whichTimer = 0;
-				});
+			// Create 2 minute Timer
+			chrome.tabs.create({
+				url: 'https://www.google.ca/search?q=timer%202%20minutes&rct=j'
+			}, function() {
+				whichTimer = 0;
+			});
 		} else {
 			console.log("Error Case.  The Timer is not being set properly.");
 		}
@@ -62,14 +60,18 @@ function clickButtonHandler(notID) {
 }
 
 function createNotification(notName) {
-	notID = notID + 1;
 	if (notName === "standUpNotification") {
+        notID = 1;
 		whichTimer = 2;
 		chrome.notifications.create('id' + notID, notificationTypes.standUp, createNotificationCallback);
 	} else if (notName === "lookAwayNotification") {
+        notID = 2;
 		whichTimer = 20;
 		chrome.notifications.create('id' + notID, notificationTypes.lookAway, createNotificationCallback);
 	} else {
+        notID = 3;
 		chrome.notifications.create('id' + notID, notificationTypes.getWater, createNotificationCallback);
 	}
 }
+
+chrome.notifications.onButtonClicked.addListener(clickButtonHandler);
