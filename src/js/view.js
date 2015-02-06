@@ -28,7 +28,6 @@ window.addEventListener('load', function() {
 		var newEnterTime, newExitTime;
 		if (enterTextField.value) {
 			var newStartMoment = officeHours.getMomentFromString(enterTextField.value);
-			console.log(newStartMoment.hour());
 			if (newStartMoment.hour() > 12) {
 				newEnterTime = (newStartMoment.hour() - 12) + ":" + newStartMoment.format("mm") + " pm";
 				officeHours.startTime = newEnterTime;
@@ -55,7 +54,6 @@ window.addEventListener('load', function() {
 		}
 		if (exitTextField.value != "") {
 			var newEndMoment = officeHours.getMomentFromString(exitTextField.value);
-			console.log(newEndMoment.hour());
 			if (newEndMoment.hour() > 12) {
 				newExitTime = (newEndMoment.hour() - 12) + ":" + newEndMoment.format("mm") + " pm";
 				officeHours.endTime = newExitTime;
