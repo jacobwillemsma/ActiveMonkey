@@ -42,7 +42,7 @@ function Scheduler() {
 	this.standingNotificationMoment = moment().add(1, 'h');
 	this.eyeNotificationMoment = moment().add(20, 'm');
 	this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
-	this.lunchMode = moment();
+/*	this.lunchMode = moment();
 	this.inLunchMode = false;
 
 	chrome.storage.local.get("lunchModeOn", function(obj) {
@@ -52,7 +52,7 @@ function Scheduler() {
 			var lunchButton = document.getElementById('lunchButton');
 			lunchButton.innerHTML = "Lunch Mode <b>On</b>";
 		}
-	});
+	});*/
 }
 
 _.extend(Scheduler.prototype, {
@@ -72,7 +72,7 @@ _.extend(Scheduler.prototype, {
 	shouldSendNotification: function() {
 		var currentMoment = moment();
 
-		// Lunch Mode handler
+		/*// Lunch Mode handler
 		if (this.inLunchMode) {
 			if (currentMoment.isAfter(this.lunchMode)) {
 				this.inLunchMode = false;
@@ -81,7 +81,7 @@ _.extend(Scheduler.prototype, {
 				var button = document.getElementById('lunchButton');
 				button.innerText = "Turn Lunch Mode On";
 			}
-		}
+		}*/
 		
 		var startMoment, endMoment;
 		chrome.storage.local.get("startTime", function(obj) { 
@@ -90,27 +90,41 @@ _.extend(Scheduler.prototype, {
 			chrome.storage.local.get("endTime", function(obj) { 
 				endMoment = officeHours.getMomentFromString(obj.endTime); 
 				
-              if (currentMoment.isBetween(startMoment, endMoment) && (currentMoment.day() !== 0 || currentMoment.day() !== 6)) {
-                    if (currentMoment.isAfter(scheduler.standingNotificationMoment) && currentMoment.isAfter(scheduler.eyeNotificationMoment)) {
+              if (currentMoment.isBetween(startMoment, endMoment) && ((currentMoment.day() !== 0 || currentMoment.day() !== 6))) {
+                	if (currentMoment.isAfter(scheduler.standingNotificationMoment)) {
 						createNotification("standUpNotification");
 						scheduler.scheduleNewStandingNotification();
-                        scheduler.scheduleNewEyeNotification();
-					} if (currentMoment.isAfter(scheduler.standingNotificationMoment)) {
-                        createNotification("standUpNotification");
-						scheduler.scheduleNewStandingNotification();     
-                    } if (currentMoment.isAfter(scheduler.eyeNotificationMoment)) {
-                        createNotification("lookAwayNotification");
-						scheduler.scheduleNewEyeNotification();
-					} if (currentMoment.isAfter(scheduler.waterNotificationMoment)) { 	
-                        createNotification("getWaterNotification");
+						if (currentMoment.isAfter(scheduler.eyeNotificationMoment)) {
+							scheduler.scheduleNewEyeNotification();
+						}
+						if (currentMoment.isAfter(scheduler.waterNotificationMoment)) {
+							scheduler.scheduleNewWaterNotification();	
+						}						
+					} else if (currentMoment.isAfter(scheduler.waterNotificationMoment)) {
+						createNotification("getWaterNotification");
 						scheduler.scheduleNewWaterNotification();
+						if (currentMoment.isAfter(scheduler.eyeNotificationMoment)) {
+							scheduler.scheduleNewEyeNotification();
+						}
+						if (currentMoment.isAfter(scheduler.standingNotificationMoment)) {
+							scheduler.scheduleNewStandingNotification();	
+						}									
+					} else if (currentMoment.isAfter(scheduler.eyeNotificationMoment)) {
+						createNotification("lookAwayNotification");
+						scheduler.scheduleNewEyeNotification();
+						if (currentMoment.isAfter(scheduler.standingNotificationMoment)) {
+							scheduler.scheduleNewStandingNotification();
+						}
+						if (currentMoment.isAfter(scheduler.waterNotificationMoment)) {
+							scheduler.scheduleNewWaterNotification();	
+						}			
 					}
 				}
 			});  
 		}); 
-	},
+	}
 
-	updateLunchMode: function() {
+/*	updateLunchMode: function() {
 		if (!this.inLunchMode) {
 			// Initate Lunch Mode
 			console.log('lunchMode on');
@@ -123,5 +137,5 @@ _.extend(Scheduler.prototype, {
 			this.eyeNotificationMoment = moment().add(1, 'h').add(20, 'm');
 			this.waterNotificationMoment = moment().add(2, 'h').add(30, 'm');
 		}
-	}
+	}*/
 });

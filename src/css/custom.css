@@ -33,7 +33,7 @@ h4 {
 	font-size: 20px;
 }
 
-#updateButton, #lunchButton {
+#updateButton/*, #lunchButton*/ {
 	width:100%;
 	margin:auto;
 	margin-bottom: 8px;
