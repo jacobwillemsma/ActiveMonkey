@@ -3,4 +3,4 @@ scheduler = new Scheduler();
 
 setInterval(function() {
 	scheduler.shouldSendNotification();
-}, 30000);
+}, 120000);
