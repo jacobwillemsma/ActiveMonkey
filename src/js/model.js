@@ -42,17 +42,6 @@ function Scheduler() {
 	this.standingNotificationMoment = moment().add(1, 'h');
 	this.eyeNotificationMoment = moment().add(20, 'm');
 	this.waterNotificationMoment = moment().add(1, 'h').add(30, 'm');
-/*	this.lunchMode = moment();
-	this.inLunchMode = false;
-
-	chrome.storage.local.get("lunchModeOn", function(obj) {
-		if (obj.lunchModeOn != undefined) {
-			console.log("lunch");
-			this.inLunchMode = obj.lunchModeOn;
-			var lunchButton = document.getElementById('lunchButton');
-			lunchButton.innerHTML = "Lunch Mode <b>On</b>";
-		}
-	});*/
 }
 
 _.extend(Scheduler.prototype, {
@@ -71,17 +60,6 @@ _.extend(Scheduler.prototype, {
 
 	shouldSendNotification: function() {
 		var currentMoment = moment();
-
-		/*// Lunch Mode handler
-		if (this.inLunchMode) {
-			if (currentMoment.isAfter(this.lunchMode)) {
-				this.inLunchMode = false;
-				chrome.storage.local.set({"lunchModeOn" : false});
-				console.log('lunchMode off');
-				var button = document.getElementById('lunchButton');
-				button.innerText = "Turn Lunch Mode On";
-			}
-		}*/
 		
 		var startMoment, endMoment;
 		chrome.storage.local.get("startTime", function(obj) { 
@@ -123,19 +101,4 @@ _.extend(Scheduler.prototype, {
 			});  
 		}); 
 	}
-
-/*	updateLunchMode: function() {
-		if (!this.inLunchMode) {
-			// Initate Lunch Mode
-			console.log('lunchMode on');
-			this.inLunchMode = true;
-			chrome.storage.local.set({"lunchModeOn" : true});
-			var button = document.getElementById('lunchButton');
-			button.innerHTML = "Lunch Mode <b>On</b>";
-			this.lunchMode = moment().add(1, 'h');
-			this.standingNotificationMoment = moment().add(2, 'h');
-			this.eyeNotificationMoment = moment().add(1, 'h').add(20, 'm');
-			this.waterNotificationMoment = moment().add(2, 'h').add(30, 'm');
-		}
-	}*/
 });

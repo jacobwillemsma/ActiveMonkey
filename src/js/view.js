@@ -4,7 +4,6 @@ window.addEventListener('load', function() {
 	var update = document.getElementById('updateButton');
 	var enterTextField = document.getElementById('enterTextField');
 	var exitTextField = document.getElementById('exitTextField');
-	/*var lunchButton = document.getElementById('lunchButton');*/
 	var enterTimeSpan = document.getElementById('enterTimeSpan');
 	var exitTimeSpan = document.getElementById('exitTimeSpan');
 
@@ -19,10 +18,6 @@ window.addEventListener('load', function() {
 	chrome.storage.local.get("endTime", function(obj) {
 		exitTimeSpan.innerText = obj.endTime;
 	});
-
-	/*lunchButton.addEventListener('click', function() {
-		scheduler.updateLunchMode();
-	});*/
 	
 	update.addEventListener('click', function() {
 		var newEnterTime, newExitTime;
