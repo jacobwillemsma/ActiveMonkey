@@ -4,25 +4,15 @@ window.addEventListener('load', function() {
 	var update = document.getElementById('updateButton');
 	var enterTextField = document.getElementById('enterTextField');
 	var exitTextField = document.getElementById('exitTextField');
-	/*var lunchButton = document.getElementById('lunchButton');*/
 	var enterTimeSpan = document.getElementById('enterTimeSpan');
 	var exitTimeSpan = document.getElementById('exitTimeSpan');
-
-	if (scheduler.inLunchMode) {
-		console.log('inLunchMode');
-		lunchButton.style = "background: rgb(231, 142, 47);";
-	}
-
+	
 	chrome.storage.local.get("startTime", function(obj) {
 		enterTimeSpan.innerText = obj.startTime;
 	});
 	chrome.storage.local.get("endTime", function(obj) {
 		exitTimeSpan.innerText = obj.endTime;
 	});
-
-	/*lunchButton.addEventListener('click', function() {
-		scheduler.updateLunchMode();
-	});*/
 	
 	update.addEventListener('click', function() {
 		var newEnterTime, newExitTime;
@@ -52,7 +42,7 @@ window.addEventListener('load', function() {
             }
             enterTimeSpan.innerText = newEnterTime;
 		}
-		if (exitTextField.value != "") {
+		if (exitTextField.value) {
 			var newEndMoment = officeHours.getMomentFromString(exitTextField.value);
 			if (newEndMoment.hour() > 12) {
 				newExitTime = (newEndMoment.hour() - 12) + ":" + newEndMoment.format("mm") + " pm";
@@ -78,8 +68,5 @@ window.addEventListener('load', function() {
 			}
             exitTimeSpan.innerText = newExitTime;
 		}
-		
-		enterTextField.value="";
-		exitTextField.value="";
 	});
 });

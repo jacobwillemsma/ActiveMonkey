@@ -3,7 +3,7 @@
     "version": "1.0.3",
     "description": "ActiveMonkey helps people who sit and work on computers to maintain healthy habits and avoid the dangers of a sedentary job.",
     "background": {
-        "scripts": ["src/js/underscore.min.js", "src/js/moment.min.js", "src/js/model.js", "src/js/notification.js", "src/js/background.js"]
+        "scripts": ["src/js/underscore.min.js", "src/js/moment.min.js", "src/js/officehours.js", "src/js/scheduler.js", "src/js/notification.js", "src/js/background.js"]
     },
     "icons": { 
         "16": "images/icon16.png",
