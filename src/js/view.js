@@ -42,7 +42,7 @@ window.addEventListener('load', function() {
             }
             enterTimeSpan.innerText = newEnterTime;
 		}
-		if (exitTextField.value != "") {
+		if (exitTextField.value) {
 			var newEndMoment = officeHours.getMomentFromString(exitTextField.value);
 			if (newEndMoment.hour() > 12) {
 				newExitTime = (newEndMoment.hour() - 12) + ":" + newEndMoment.format("mm") + " pm";
@@ -68,8 +68,5 @@ window.addEventListener('load', function() {
 			}
             exitTimeSpan.innerText = newExitTime;
 		}
-		
-		enterTextField.value="";
-		exitTextField.value="";
 	});
 });
