@@ -6,12 +6,7 @@ window.addEventListener('load', function() {
 	var exitTextField = document.getElementById('exitTextField');
 	var enterTimeSpan = document.getElementById('enterTimeSpan');
 	var exitTimeSpan = document.getElementById('exitTimeSpan');
-
-	if (scheduler.inLunchMode) {
-		console.log('inLunchMode');
-		lunchButton.style = "background: rgb(231, 142, 47);";
-	}
-
+	
 	chrome.storage.local.get("startTime", function(obj) {
 		enterTimeSpan.innerText = obj.startTime;
 	});
